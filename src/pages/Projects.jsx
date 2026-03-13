@@ -593,7 +593,7 @@ export default function ProjectsPage() {
 
           {/* Tag pills */}
           <motion.div variants={fadeUp} className="flex flex-wrap gap-2.5">
-            {["⚡ React & Tailwind", "🚀 Production Deployed", "🎯 Client-Focused", "📱 Mobile-First"].map(tag => (
+            {[" React & Tailwind", " Production Deployed", " Client-Focused", " Mobile-First"].map(tag => (
               <span
                 key={tag}
                 className="px-4 py-1.5 rounded-full text-xs font-medium text-slate-400"
