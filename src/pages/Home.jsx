@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   FaReact, FaHtml5, FaCss3Alt, FaJs, FaGitAlt, FaNpm,
   FaCode, FaBrain, FaLaptopCode, FaWhatsapp, FaLinkedin,
@@ -730,7 +731,8 @@ const ProjectsSection = () => (
       <div className="h-px mt-4" style={{ background: "linear-gradient(90deg, transparent, #1e3a6e, transparent)" }} />
 
       {/* View All Projects button */}
-      <AnimSection className="flex justify-center mt-14">
+      <Link to = "/projects">
+       <AnimSection className="flex justify-center mt-14">
         <motion.a
           variants={fadeUp}
           href="/projects"
@@ -743,6 +745,8 @@ const ProjectsSection = () => (
           <span className="text-blue-400 text-lg">→</span>
         </motion.a>
       </AnimSection>
+      </Link>
+     
     </div>
   </section>
 );
