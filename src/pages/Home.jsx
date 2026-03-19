@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   FaReact, FaHtml5, FaCss3Alt, FaJs, FaGitAlt, FaNpm,
   FaCode, FaBrain, FaLaptopCode, FaWhatsapp, FaLinkedin,
@@ -9,11 +9,11 @@ import {
   FaHome, FaUser, FaFolderOpen, FaExternalLinkAlt, FaGithub,
 } from "react-icons/fa";
 import { SiTailwindcss, SiFramer, SiBootstrap } from "react-icons/si";
-import profile from "../images/profile.jpg";
+import profile from "../images/profile.avif";
 import bgimg from "../images/bgimg.avif";
-import omaraf from "../images/omaraf.png";
-import everythingtax from "../images/everythingtax.png";
-import gaitanoe from "../images/gaitanoe.png";
+import omaraf from "../images/omaraf.avif";
+import everythingtax from "../images/everythingtax.avif";
+import gaitanoe from "../images/gaitanoe.avif";
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 
@@ -42,19 +42,20 @@ const HIGHLIGHTS = [
 ];
 
 const SOCIALS = [
-  { icon: <FaWhatsapp />,  label: "WhatsApp", href: "https://wa.me/2349065256711" },
+  { icon: <FaWhatsapp />,  label: "WhatsApp", href: "https://wa.me/2349131940037" },
   { icon: <FaLinkedin />,  label: "LinkedIn", href: "https://linkedin.com/in/yourusername" },
   { icon: <FaTiktok />,    label: "TikTok",   href: "https://www.tiktok.com/@david.codess" },
   { icon: <FaGithub />,    label: "GitHub",   href: "https://github.com/Dvdokolo" },
 ];
 
 const JOURNEY = [
-  { year: "Age 13", label: "First Lines of Code",       desc: "Curiosity about how websites worked led me to write my first HTML code and sparked my interest in technology." },
-  { year: "2023",   label: "Career Shift into Tech",    desc: "Transitioned from Accounting to Software Development, choosing to pursue a path aligned with my passion for technology." },
-  { year: "2024",   label: "Focused Learning",          desc: "Committed to mastering JavaScript, React, and modern web development through consistent study and hands-on practice." },
-  { year: "2024",   label: "First Professional Projects", desc: "Joined a startup and built real-world applications including a pizza ordering website, weather app, and task management system." },
-  { year: "2025",   label: "Client Work Experience",    desc: "Began working on client projects, applying my skills to real business problems and production-level applications." },
-  { year: "Now",    label: "Student & Product Builder", desc: "Currently pursuing an IT degree while actively building projects and expanding into full-stack development and AI-powered solutions." },
+  { year: "Age 13", label: "First Lines of Code",          desc: "Curiosity about how websites worked led me to write my first HTML code and sparked my interest in technology." },
+  { year: "2023",   label: "Career Shift into Tech",       desc: "Transitioned from Accounting to Software Development, choosing to pursue a path aligned with my passion for technology." },
+  { year: "2024",   label: "Focused Learning",             desc: "Committed to mastering JavaScript, React, and modern web development through consistent study and hands-on practice." },
+  { year: "2024",   label: "First Professional Projects",  desc: "Joined a startup and built real-world applications including a pizza ordering website, weather app, and task management system." },
+  { year: "2025",   label: "Client Work Experience",       desc: "Began working on client projects, applying my skills to real business problems and production-level applications." },
+  { year: "2025",   label: "Diploma in Software Engineering", desc: "Graduated with a Diploma in Software Engineering from Aptech Computing Education — a major milestone marking my formal entry into the tech industry." },
+  { year: "Now",    label: "Student & Product Builder",    desc: "Recently admitted to Lincoln University Malaysia to study IT. Actively building projects and expanding into full-stack development and AI-powered solutions." },
 ];
 
 const BIO = [
@@ -62,6 +63,21 @@ const BIO = [
   "My journey into tech began at the age of 13, when curiosity about how websites worked led me to write my first lines of code. What started as simple experimentation quickly grew into a genuine passion for technology and problem-solving.",
   "Currently, I'm a student pursuing a degree in Information Technology while actively working to build my career early. I focus on modern web development using HTML, CSS, JavaScript, and React — while expanding toward full-stack development and AI-powered applications.",
   "Looking ahead, my goal is to evolve into a full-stack engineer and product builder, developing scalable applications and innovative tools that create real impact. I'm driven by curiosity, creativity, and the ambition to build technology that not only works well but also makes life easier for people and businesses.",
+];
+
+const EDUCATION = [
+  {
+    school: "Aptech Computing Education",
+    degree: "Diploma in Software Engineering",
+    year: "2023 — 2025",
+    desc: "Completed a comprehensive software engineering diploma covering web development, programming fundamentals, databases, and modern development practices.",
+  },
+  {
+    school: "Lincoln University Malaysia",
+    degree: "Bachelor of Information Technology",
+    year: "2025 — Present",
+    desc: "Recently admitted to pursue a degree in Information Technology, furthering my academic foundation alongside active professional development.",
+  },
 ];
 
 const PROJECTS = [
@@ -167,6 +183,7 @@ const Counter = ({ to, label }) => {
 const RotatingCircle = ({ onClick }) => (
   <motion.button
     onClick={onClick}
+    aria-label="Scroll to projects section"
     className="relative w-28 h-28 flex items-center justify-center cursor-pointer bg-transparent border-none flex-shrink-0"
     whileHover={{ scale: 1.07 }}
     whileTap={{ scale: 0.95 }}
@@ -199,6 +216,7 @@ const Nav = ({ active, scrollTo }) => {
     <>
       <motion.button
         onClick={() => setOpen(o => !o)}
+        aria-label={open ? "Close navigation menu" : "Open navigation menu"}
         className="fixed top-6 right-6 z-50 w-11 h-11 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-white flex items-center justify-center shadow-[0_0_24px_#3b82f650] border-none cursor-pointer"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -231,6 +249,7 @@ const Nav = ({ active, scrollTo }) => {
                 key={link.id}
                 custom={i} variants={fadeUp} initial="hidden" animate="visible"
                 onClick={() => { scrollTo(link.id); setOpen(false); }}
+                aria-label={`Navigate to ${link.label} section`}
                 className="w-full flex items-center gap-3 px-5 py-3.5 bg-transparent border-none cursor-pointer text-sm"
                 style={{ color: active === link.id ? "#60a5fa" : "#94a3b8", fontFamily: "'Space Mono', monospace" }}
                 whileHover={{ backgroundColor: "#0f1f3d", color: "#93c5fd" }}
@@ -318,9 +337,9 @@ const HeroSection = ({ scrollTo }) => (
           {/* Photo */}
           <div
             className="rounded-2xl overflow-hidden relative"
-            style={{ width: 150, height: 165, border: "2.5px solid #2563eb", boxShadow: "0 0 32px rgba(37,99,235,0.45)" }}
+            style={{ width: 150, height: 165, boxShadow: "0 0 32px rgba(37,99,235,0.45)" }}
           >
-            <img src={profile} alt="David Okolo" className="w-full h-full object-cover" />
+            <img src={profile} alt="David Okolo — Front-end Developer based in Nigeria" className="w-full h-full object-cover grayscale" />
             <div className="absolute inset-0" style={{ background: "rgba(29,78,216,0.5)", mixBlendMode: "multiply" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(155deg, rgba(255,255,255,0.07) 0%, transparent 55%)" }} />
           </div>
@@ -353,6 +372,7 @@ const HeroSection = ({ scrollTo }) => (
             {SOCIALS.map(s => (
               <motion.a
                 key={s.label} href={s.href} title={s.label}
+                aria-label={`Visit my ${s.label} profile`}
                 target="_blank" rel="noopener noreferrer"
                 whileHover={{ y: -3, color: "#60a5fa" }}
                 className="w-8 h-8 rounded-full flex items-center justify-center text-xs text-slate-500 transition-all no-underline"
@@ -366,6 +386,7 @@ const HeroSection = ({ scrollTo }) => (
           {/* Hire Me — scrolls to contact form */}
           <motion.button
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+            aria-label="Hire me — go to contact form"
             whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
             className="w-full py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 text-white border-none cursor-pointer"
             style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 22px rgba(37,99,235,0.45)" }}
@@ -421,6 +442,7 @@ const HeroSection = ({ scrollTo }) => (
           >
             <motion.button
               onClick={() => scrollTo("projects")}
+              aria-label="View my projects"
               whileHover={{ scale: 1.04, boxShadow: "0 0 28px #3b82f660" }}
               whileTap={{ scale: 0.97 }}
               className="px-7 py-3 rounded-xl font-bold text-sm text-white border-none cursor-pointer bg-gradient-to-br from-blue-500 to-blue-700 shadow-[0_4px_20px_#1d4ed840]"
@@ -429,6 +451,7 @@ const HeroSection = ({ scrollTo }) => (
             </motion.button>
             <motion.button
               onClick={() => scrollTo("contact")}
+              aria-label="Contact me"
               whileHover={{ scale: 1.04, backgroundColor: "#0f1f3d" }}
               whileTap={{ scale: 0.97 }}
               className="px-7 py-3 rounded-xl font-bold text-sm text-blue-400 border-2 border-blue-700 bg-transparent cursor-pointer transition-colors"
@@ -468,6 +491,32 @@ const AboutSection = () => (
             {text}
           </motion.p>
         ))}
+      </AnimSection>
+
+      {/* Education */}
+      <AnimSection className="mb-14">
+        <motion.p variants={fadeUp} className="text-xs tracking-widest uppercase text-slate-700 mb-5 font-semibold">
+          Education
+        </motion.p>
+        <div className="flex flex-col gap-4">
+          {EDUCATION.map((ed, i) => (
+            <motion.div
+              key={ed.school} custom={i} variants={fadeUp}
+              className="flex gap-5 p-5 rounded-2xl"
+              style={{ background: "rgba(10,18,40,0.7)", border: "1px solid #1e3a6e" }}
+            >
+              <div className="w-2 flex-shrink-0 rounded-full mt-1" style={{ background: "linear-gradient(to bottom, #3b82f6, #1d4ed8)", minHeight: 40 }} />
+              <div>
+                <div className="flex items-center gap-3 flex-wrap mb-1">
+                  <p className="text-slate-100 font-bold text-sm m-0">{ed.school}</p>
+                  <span className="text-xs text-blue-500 font-mono">{ed.year}</span>
+                </div>
+                <p className="text-blue-400 text-xs font-semibold mb-2">{ed.degree}</p>
+                <p className="text-slate-500 text-xs leading-relaxed m-0">{ed.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </AnimSection>
 
       {/* Highlights */}
@@ -542,6 +591,7 @@ const AboutSection = () => (
           variants={fadeUp}
           href="/DavidOkoloResume.pdf"
           download
+          aria-label="Download David Okolo's resume PDF"
           whileHover={{ scale: 1.04, boxShadow: "0 0 28px #3b82f660" }}
           whileTap={{ scale: 0.96 }}
           className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl font-bold text-sm text-white no-underline bg-gradient-to-br from-blue-500 to-blue-700 shadow-[0_4px_24px_#1d4ed840]"
@@ -651,7 +701,7 @@ const ProjectCard = ({ project, index }) => {
           >
             <img
               src={project.image}
-              alt={project.title}
+              alt={`Screenshot of ${project.title} project`}
               className="w-full h-auto block"
               style={{ aspectRatio: "16/10", objectFit: "cover" }}
             />
@@ -731,22 +781,20 @@ const ProjectsSection = () => (
       <div className="h-px mt-4" style={{ background: "linear-gradient(90deg, transparent, #1e3a6e, transparent)" }} />
 
       {/* View All Projects button */}
-      <Link to = "/projects">
-       <AnimSection className="flex justify-center mt-14">
-        <motion.a
-          variants={fadeUp}
-          href="/projects"
-          whileHover={{ scale: 1.04, boxShadow: "0 0 36px #3b82f640" }}
-          whileTap={{ scale: 0.96 }}
-          className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white no-underline border border-blue-700 transition-all"
-          style={{ background: "rgba(37,99,235,0.1)", backdropFilter: "blur(12px)" }}
-        >
-          View All Projects
-          <span className="text-blue-400 text-lg">→</span>
-        </motion.a>
-      </AnimSection>
+      <Link to="/projects" aria-label="View all projects page">
+        <AnimSection className="flex justify-center mt-14">
+          <motion.a
+            variants={fadeUp}
+            whileHover={{ scale: 1.04, boxShadow: "0 0 36px #3b82f640" }}
+            whileTap={{ scale: 0.96 }}
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white no-underline border border-blue-700 transition-all"
+            style={{ background: "rgba(37,99,235,0.1)", backdropFilter: "blur(12px)" }}
+          >
+            View All Projects
+            <span className="text-blue-400 text-lg">→</span>
+          </motion.a>
+        </AnimSection>
       </Link>
-     
     </div>
   </section>
 );
@@ -837,7 +885,7 @@ const ContactSection = () => {
             <AnimSection className="flex gap-4">
               {[
                 // { icon: <FaEnvelope size={14} />,  href: "mailto:dvdokolo@gmail.com" },
-                { icon: <FaWhatsapp size={14} />,  href: "https://wa.me/2349065256711" },
+                { icon: <FaWhatsapp size={14} />,  href: "https://wa.me/2349131940037" },
                 { icon: <FaTiktok size={14} />,    href: "https://www.tiktok.com/@david.codess" },
                 { icon: <FaLinkedin size={14} />,  href: "https://linkedin.com/in/yourusername" },
                 { icon: <FaGithub />,    label: "GitHub",   href: "https://github.com/Dvdokolo" },
@@ -885,7 +933,7 @@ const ContactSection = () => {
                     <input
                       type="text"
                       required
-                      placeholder="David Okolo"
+                      placeholder="full name"
                       value={form.name}
                       onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                       className="w-full px-4 py-3 rounded-xl text-sm text-slate-200 placeholder-slate-600 outline-none transition-all"
@@ -945,6 +993,7 @@ const ContactSection = () => {
                 {/* Submit */}
                 <motion.button
                   type="submit"
+                  aria-label="Send message"
                   disabled={sending || sent}
                   whileHover={{ scale: sending || sent ? 1 : 1.02, boxShadow: "0 0 32px #3b82f650" }}
                   whileTap={{ scale: 0.97 }}

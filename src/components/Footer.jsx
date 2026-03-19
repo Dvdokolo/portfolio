@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FaLinkedin, FaWhatsapp, FaTiktok, FaArrowUp, FaCode } from 'react-icons/fa';
+import { FaLinkedin, FaWhatsapp, FaTiktok, FaArrowUp, FaCode, FaGithub } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
@@ -8,15 +8,16 @@ import { MdEmail } from 'react-icons/md';
 const NAV_LINKS = [
   { label: "Home",     href: "#home" },
   { label: "About",   href: "#about" },
-  { label: "Projects", href: "#" },      // not ready yet
-  { label: "Contact",  href: "#" },      // not ready yet
+  { label: "Projects", href: "#projects" },
+  { label: "Contact",  href: "#contact" },
 ];
 
 const SOCIALS = [
   { href: "https://wa.me/2349065256711",                icon: <FaWhatsapp size={15} />, label: "WhatsApp" },
   { href: "https://linkedin.com/in/yourusername",       icon: <FaLinkedin size={15} />, label: "LinkedIn" },
   { href: "https://www.tiktok.com/@david.codess",       icon: <FaTiktok size={14} />,   label: "TikTok" },
-  { href: "mailto:dvdokolo@gmail.com",                  icon: <MdEmail size={16} />,    label: "Email" },
+  // { href: "mailto:dvdokolo@gmail.com",                  icon: <MdEmail size={16} />,    label: "Email" },
+  { href: "https://github.com/Dvdokolo",                 icon: <FaGithub size={15} />,   label: "GitHub" },
 ];
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
@@ -99,6 +100,7 @@ const Footer = () => {
                   title={s.label}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Visit my ${s.label} profile`}
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.92 }}
                   className="w-9 h-9 rounded-full flex items-center justify-center text-slate-500 no-underline transition-colors hover:text-blue-400"
@@ -146,18 +148,20 @@ const Footer = () => {
               Get In Touch
             </p>
             <div className="flex flex-col gap-4">
-              <a
-                href="mailto:dvdokolo@gmail.com"
+              <motion.a 
+                href="#contact"
+                aria-label="Send me an email"
                 className="flex items-center gap-3 text-slate-500 text-xs no-underline transition-colors hover:text-blue-400"
               >
                 <span className="w-8 h-8 rounded-lg flex items-center justify-center text-blue-500 flex-shrink-0" style={{ background: "rgba(37,99,235,0.1)", border: "1px solid #1e3a6e" }}>
                   <MdEmail size={14} />
                 </span>
                 dvdokolo@gmail.com
-              </a>
+              </motion.a>
 
               <a
-                href="https://wa.me/2349065256711"
+                href="https://wa.me/2349131940037"
+                aria-label="Message me on WhatsApp"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-slate-500 text-xs no-underline transition-colors hover:text-blue-400"
@@ -165,7 +169,7 @@ const Footer = () => {
                 <span className="w-8 h-8 rounded-lg flex items-center justify-center text-blue-500 flex-shrink-0" style={{ background: "rgba(37,99,235,0.1)", border: "1px solid #1e3a6e" }}>
                   <FaWhatsapp size={13} />
                 </span>
-                +234 906 525 6711
+                +234 913 194 0037
               </a>
 
               {/* Available badge */}
@@ -202,6 +206,7 @@ const Footer = () => {
 
           <motion.button
             onClick={scrollToTop}
+            aria-label="Scroll back to top of page"
             whileHover={{ y: -3, borderColor: "#3b82f6", color: "#60a5fa" }}
             whileTap={{ scale: 0.92 }}
             className="flex items-center gap-2 px-4 py-1.5 rounded-full text-slate-500 text-xs cursor-pointer transition-all border-none"

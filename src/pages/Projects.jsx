@@ -2,10 +2,10 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { FaExternalLinkAlt, FaArrowLeft } from "react-icons/fa";
-import omaraf from "../images/omaraf.png";
-import everythingtax from "../images/everythingtax.png";
-import gaitanoe from "../images/gaitanoe.png";
-import geebees from "../images/geebees.png";
+import omaraf from "../images/omaraf.avif";
+import everythingtax from "../images/everythingtax.avif";
+import gaitanoe from "../images/gaitanoe.avif";
+import geebees from "../images/geebees.avif";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -339,6 +339,8 @@ const DinoGame = () => {
         className="relative rounded-2xl overflow-hidden cursor-pointer select-none"
         style={{ border: "1px solid rgba(37,99,235,0.15)", boxShadow: "0 0 40px rgba(37,99,235,0.05), inset 0 1px 0 rgba(255,255,255,0.03)" }}
         onClick={doJump}
+        aria-label="Dino game — tap or press space to play"
+        role="button"
       >
         <canvas
           ref={canvasRef}
@@ -410,7 +412,7 @@ const ProjectCard = ({ project, index }) => {
                 className="inline-flex items-center gap-1 text-xs no-underline px-2 py-0.5 rounded-full transition-colors hover:opacity-80"
                 style={{ background: "rgba(251,191,36,0.08)", border: "1px solid rgba(251,191,36,0.2)", color: "#fbbf24" }}
               >
-                Built with {project.credit}
+                 Built with {project.credit}
               </a>
             )}
           </div>
@@ -454,6 +456,7 @@ const ProjectCard = ({ project, index }) => {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Visit ${project.title} live site`}
             whileHover={{ scale: 1.04, boxShadow: `0 0 28px ${project.color}40` }}
             whileTap={{ scale: 0.96 }}
             className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-bold text-sm text-white no-underline"
@@ -481,7 +484,7 @@ const ProjectCard = ({ project, index }) => {
           >
             <img
               src={project.image}
-              alt={project.title}
+              alt={`Screenshot of the ${project.title} website`}
               className="w-full block"
               style={{ aspectRatio: "16/10", objectFit: "cover" }}
             />
@@ -558,6 +561,7 @@ export default function ProjectsPage() {
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="mb-14">
           <Link
             to="/"
+            aria-label="Go back to home page"
             className="inline-flex items-center gap-2.5 text-slate-500 text-sm no-underline hover:text-blue-400 transition-colors"
           >
             <motion.span whileHover={{ x: -3 }} transition={{ duration: 0.2 }} className="text-blue-500">
@@ -629,6 +633,7 @@ export default function ProjectsPage() {
           <motion.div variants={fadeUp}>
             <Link
               to="/#contact"
+              aria-label="Go to contact section"
               className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white no-underline"
               style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 28px rgba(37,99,235,0.35)" }}
             >
