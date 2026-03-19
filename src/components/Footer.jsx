@@ -16,7 +16,7 @@ const SOCIALS = [
   { href: "https://wa.me/2349065256711",                icon: <FaWhatsapp size={15} />, label: "WhatsApp" },
   { href: "https://linkedin.com/in/yourusername",       icon: <FaLinkedin size={15} />, label: "LinkedIn" },
   { href: "https://www.tiktok.com/@david.codess",       icon: <FaTiktok size={14} />,   label: "TikTok" },
-  // { href: "mailto:dvdokolo@gmail.com",                  icon: <MdEmail size={16} />,    label: "Email" },
+  // { href: "mailto:dvdokolo@gmail.com",               icon: <MdEmail size={16} />,    label: "Email" },
   { href: "https://github.com/Dvdokolo",                 icon: <FaGithub size={15} />,   label: "GitHub" },
 ];
 
@@ -45,7 +45,6 @@ const Footer = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const scrollToSection = (e, href) => {
-    if (href === "#") return; // disabled links
     e.preventDefault();
     const id = href.replace("#", "");
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -123,20 +122,15 @@ const Footer = () => {
                   key={link.label}
                   href={link.href}
                   onClick={e => scrollToSection(e, link.href)}
-                  whileHover={{ x: link.href !== "#" ? 4 : 0 }}
+                  whileHover={{ x: 4 }}
                   className="flex items-center gap-2 text-sm no-underline transition-colors"
-                  style={{
-                    color: link.href === "#" ? "#334155" : "#64748b",
-                    cursor: link.href === "#" ? "default" : "pointer",
-                  }}
-                  onMouseEnter={e => { if (link.href !== "#") e.currentTarget.style.color = "#60a5fa"; }}
-                  onMouseLeave={e => { e.currentTarget.style.color = link.href === "#" ? "#334155" : "#64748b"; }}
+                  style={{ color: "#64748b", cursor: "pointer" }}
+                  onMouseEnter={e => { e.currentTarget.style.color = "#60a5fa"; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = "#64748b"; }}
                 >
                   <span className="w-1 h-1 rounded-full bg-blue-800 flex-shrink-0" />
                   {link.label}
-                  {link.href === "#" && (
-                    <span className="ml-1 text-xs text-slate-700 font-normal">(soon)</span>
-                  )}
+
                 </motion.a>
               ))}
             </nav>
@@ -148,7 +142,7 @@ const Footer = () => {
               Get In Touch
             </p>
             <div className="flex flex-col gap-4">
-              <motion.a 
+              <motion.a
                 href="#contact"
                 aria-label="Send me an email"
                 className="flex items-center gap-3 text-slate-500 text-xs no-underline transition-colors hover:text-blue-400"

@@ -505,7 +505,7 @@ const AboutSection = () => (
               className="flex gap-5 p-5 rounded-2xl"
               style={{ background: "rgba(10,18,40,0.7)", border: "1px solid #1e3a6e" }}
             >
-              <div className="w-2 flex-shrink-0 rounded-full mt-1" style={{ background: "linear-gradient(to bottom, #3b82f6, #1d4ed8)", minHeight: 40 }} />
+              <div className="w-1 flex-shrink-0 rounded-full mt-1" style={{ background: "linear-gradient(to bottom, #3b82f6, #1d4ed8)", minHeight: 40 }} />
               <div>
                 <div className="flex items-center gap-3 flex-wrap mb-1">
                   <p className="text-slate-100 font-bold text-sm m-0">{ed.school}</p>
@@ -1021,7 +1021,7 @@ const ContactSection = () => {
 
                 {!sent && !error && (
                   <p className="text-slate-600 text-xs text-center">
-                    I'll get back to you within 24 hours. 
+                    I'll get back to you within 24 hours. ✉️
                   </p>
                 )}
               </form>

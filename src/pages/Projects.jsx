@@ -412,7 +412,7 @@ const ProjectCard = ({ project, index }) => {
                 className="inline-flex items-center gap-1 text-xs no-underline px-2 py-0.5 rounded-full transition-colors hover:opacity-80"
                 style={{ background: "rgba(251,191,36,0.08)", border: "1px solid rgba(251,191,36,0.2)", color: "#fbbf24" }}
               >
-                 Built with {project.credit}
+                Built with {project.credit}
               </a>
             )}
           </div>
@@ -489,13 +489,12 @@ const ProjectCard = ({ project, index }) => {
               style={{ aspectRatio: "16/10", objectFit: "cover" }}
             />
 
-            {/* ── OPACITY GRADIENT FADE EFFECTS ── */}
             {/* Bottom fade */}
             <div
               className="absolute inset-0"
               style={{ background: "linear-gradient(to bottom, transparent 35%, rgba(5,12,26,0.75) 100%)" }}
             />
-            {/* Side fade toward text */}
+            {/* Side fade */}
             <div
               className="absolute inset-0 hidden md:block"
               style={{ background: isEven
@@ -514,10 +513,7 @@ const ProjectCard = ({ project, index }) => {
 
             {/* Bottom info overlay */}
             <div className="absolute bottom-0 left-0 right-0 px-5 py-4 flex items-center justify-between">
-              <span
-                className="text-white text-sm font-bold"
-                style={{ fontFamily: "'Space Mono', monospace" }}
-              >
+              <span className="text-white text-sm font-bold" style={{ fontFamily: "'Space Mono', monospace" }}>
                 {project.title}
               </span>
               <span className="text-xs font-semibold" style={{ color: project.color, fontFamily: "'Space Mono', monospace" }}>
@@ -530,119 +526,3 @@ const ProjectCard = ({ project, index }) => {
     </motion.div>
   );
 };
-
-// ─── PAGE ─────────────────────────────────────────────────────────────────────
-
-export default function ProjectsPage() {
-  return (
-    <div className="bg-[#050c1a] min-h-screen text-white" style={{ fontFamily: "'Inter', sans-serif" }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;900&display=swap');
-        *, *::before, *::after { box-sizing: border-box; }
-        body { margin: 0; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #050c1a; }
-        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 2px; }
-      `}</style>
-
-      {/* Fixed net background */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0"
-        style={{
-          backgroundImage: `linear-gradient(rgba(37,99,235,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.035) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }}
-      />
-      <div className="fixed inset-0 pointer-events-none z-0" style={{ background: "radial-gradient(ellipse at top, rgba(37,99,235,0.07) 0%, transparent 60%)" }} />
-
-      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 py-16">
-
-        {/* ── BACK BUTTON ── */}
-        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="mb-14">
-          <Link
-            to="/"
-            aria-label="Go back to home page"
-            className="inline-flex items-center gap-2.5 text-slate-500 text-sm no-underline hover:text-blue-400 transition-colors"
-          >
-            <motion.span whileHover={{ x: -3 }} transition={{ duration: 0.2 }} className="text-blue-500">
-              <FaArrowLeft size={13} />
-            </motion.span>
-            Back to Home
-          </Link>
-        </motion.div>
-
-        {/* ── PAGE HEADER ── */}
-        <AnimSection className="mb-16">
-          <motion.div
-            variants={fadeUp}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs tracking-widest uppercase mb-6 border border-blue-900 text-slate-500"
-            style={{ background: "rgba(37,99,235,0.06)" }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
-            All Projects
-          </motion.div>
-
-          <motion.h1
-            variants={fadeUp}
-            className="font-black text-slate-100 leading-none mb-5"
-            style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)", fontFamily: "'Space Mono', monospace" }}
-          >
-            My<br />
-            <span className="text-blue-500" style={{ textShadow: "0 0 60px rgba(37,99,235,0.4)" }}>Work.</span>
-          </motion.h1>
-
-          <motion.p variants={fadeUp} className="text-slate-500 text-sm max-w-lg leading-relaxed mb-8">
-            Real projects, real clients, real impact — each one built with intention and shipped to production.
-          </motion.p>
-
-          {/* Tag pills */}
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-2.5">
-            {[" React & Tailwind", " Production Deployed", " Client-Focused", " Mobile-First"].map(tag => (
-              <span
-                key={tag}
-                className="px-4 py-1.5 rounded-full text-xs font-medium text-slate-400"
-                style={{ background: "rgba(37,99,235,0.07)", border: "1px solid rgba(37,99,235,0.18)" }}
-              >
-                {tag}
-              </span>
-            ))}
-          </motion.div>
-        </AnimSection>
-
-        {/* ── DINO GAME EASTER EGG ── */}
-        <AnimSection>
-          <motion.div variants={fadeUp}>
-            <DinoGame />
-          </motion.div>
-        </AnimSection>
-
-        {/* ── PROJECT CARDS ── */}
-        <div>
-          {PROJECTS.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
-          ))}
-        </div>
-
-        {/* ── BOTTOM CTA ── */}
-        <div className="h-px mt-4 mb-16" style={{ background: "linear-gradient(90deg, transparent, #1e3a6e, transparent)" }} />
-
-        <AnimSection className="text-center">
-          <motion.p variants={fadeUp} className="text-slate-600 text-sm mb-6">
-            More projects on the way — have something in mind?
-          </motion.p>
-          <motion.div variants={fadeUp}>
-            <Link
-              to="/#contact"
-              aria-label="Go to contact section"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white no-underline"
-              style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 28px rgba(37,99,235,0.35)" }}
-            >
-              Let's Work Together →
-            </Link>
-          </motion.div>
-        </AnimSection>
-
-      </div>
-    </div>
-  );
-}
