@@ -135,7 +135,6 @@ const DinoGame = () => {
   const doJump = useCallback(() => {
     const g = gameRef.current;
     if (g.over) {
-      // restart
       g.running = true; g.over = false; g.score = 0; g.frame = 0; g.speed = 5;
       g.dino = { x: 80, y: 0, vy: 0, jumping: false, dead: false };
       g.obstacles = []; g.clouds = [];
@@ -163,14 +162,14 @@ const DinoGame = () => {
     const drawDino = (x, y, dead) => {
       const by = GROUND - 50 + y;
       ctx.fillStyle = dead ? "#ef4444" : "#60a5fa";
-      ctx.fillRect(x, by + 10, 34, 28);       // body
-      ctx.fillRect(x + 14, by, 22, 20);        // head
+      ctx.fillRect(x, by + 10, 34, 28);
+      ctx.fillRect(x + 14, by, 22, 20);
       ctx.fillStyle = "#050c1a";
-      ctx.fillRect(x + 28, by + 5, 5, 5);      // eye
+      ctx.fillRect(x + 28, by + 5, 5, 5);
       ctx.fillStyle = dead ? "#fca5a5" : "#93c5fd";
-      ctx.fillRect(x + 32, by + 13, 6, 3);     // mouth
+      ctx.fillRect(x + 32, by + 13, 6, 3);
       ctx.fillStyle = dead ? "#ef4444" : "#60a5fa";
-      ctx.fillRect(x - 10, by + 16, 14, 8);    // tail
+      ctx.fillRect(x - 10, by + 16, 14, 8);
       const leg = dead ? 0 : Math.sin(g.frame * 0.28) * 7;
       ctx.fillRect(x + 6,  by + 38, 8, 12 + leg);
       ctx.fillRect(x + 20, by + 38, 8, 12 - leg);
@@ -215,12 +214,9 @@ const DinoGame = () => {
 
     const tick = () => {
       ctx.clearRect(0, 0, GW, GH);
-
-      // bg
       ctx.fillStyle = "#050c1a";
       ctx.fillRect(0, 0, GW, GH);
 
-      // ground
       ctx.strokeStyle = "rgba(37,99,235,0.28)";
       ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(0, GROUND); ctx.lineTo(GW, GROUND); ctx.stroke();
@@ -231,7 +227,6 @@ const DinoGame = () => {
       }
 
       if (!g.running) {
-        // idle
         ctx.fillStyle = "rgba(96,165,250,0.55)";
         ctx.font = "bold 13px 'Space Mono', monospace";
         ctx.textAlign = "center";
@@ -248,12 +243,10 @@ const DinoGame = () => {
       g.groundX -= g.speed;
       if (g.frame % 500 === 0) g.speed = Math.min(g.speed + 0.6, 14);
 
-      // clouds
       if (g.frame % 90 === 0) g.clouds.push({ x: GW + 50, y: 18 + Math.random() * 55 });
       g.clouds.forEach(c => { c.x -= 1.2; drawCloud(c.x, c.y); });
       g.clouds = g.clouds.filter(c => c.x > -80);
 
-      // obstacles
       const last = g.obstacles[g.obstacles.length - 1];
       const gap = Math.max(260, 460 - g.score * 0.4);
       if (!last || last.x < GW - gap) {
@@ -267,14 +260,12 @@ const DinoGame = () => {
       g.obstacles.forEach(o => { o.x -= g.speed; if (o.type === "cactus") drawCactus(o.x); else drawBird(o.x, o.y); });
       g.obstacles = g.obstacles.filter(o => o.x > -60);
 
-      // dino physics
       if (!g.over) {
         g.dino.vy += 0.72;
         g.dino.y += g.dino.vy;
         if (g.dino.y >= 0) { g.dino.y = 0; g.dino.vy = 0; g.dino.jumping = false; }
       }
 
-      // collision
       if (!g.over) {
         for (const o of g.obstacles) {
           if (collides(g.dino, o)) {
@@ -296,7 +287,6 @@ const DinoGame = () => {
         if (g.frame % 2 === 0) setDisplayScore(Math.floor(g.score / 2));
       }
 
-      // score overlay
       ctx.fillStyle = "rgba(96,165,250,0.45)";
       ctx.font = "bold 12px 'Space Mono', monospace";
       ctx.textAlign = "right";
@@ -329,10 +319,10 @@ const DinoGame = () => {
     <div className="mb-20">
       <div className="flex items-center gap-3 mb-4">
         <span className="text-xs tracking-widest uppercase text-slate-700 font-semibold" style={{ fontFamily: "'Space Mono', monospace" }}>
-           easter egg
+          easter egg
         </span>
         <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, #1e3a6e44, transparent)" }} />
-        <span className="text-xs text-slate-700">scroll past to see projects ↓</span>
+        <span className="text-xs text-slate-700">scroll past to see projects</span>
       </div>
 
       <div
@@ -351,13 +341,10 @@ const DinoGame = () => {
         />
       </div>
 
-      <p
-        className="text-center text-slate-700 text-xs mt-3"
-        style={{ fontFamily: "'Space Mono', monospace" }}
-      >
-        {gameState === "idle"  && "— tap the canvas or press space to start —"}
+      <p className="text-center text-slate-700 text-xs mt-3" style={{ fontFamily: "'Space Mono', monospace" }}>
+        {gameState === "idle"    && "— tap the canvas or press space to start —"}
         {gameState === "running" && `score: ${String(displayScore).padStart(5, "0")}`}
-        {gameState === "over"  && `final: ${String(displayScore).padStart(5, "0")}  ·  best: ${String(displayHi).padStart(5, "0")}`}
+        {gameState === "over"    && `final: ${String(displayScore).padStart(5, "0")}  ·  best: ${String(displayHi).padStart(5, "0")}`}
       </p>
     </div>
   );
@@ -378,14 +365,12 @@ const ProjectCard = ({ project, index }) => {
       transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="relative group"
     >
-      {/* Row divider */}
       <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #1e3a6e, transparent)" }} />
 
       <div className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-10 md:gap-16 py-16`}>
 
         {/* ── TEXT SIDE ── */}
         <div className="flex-1 min-w-0">
-          {/* Ghost number */}
           <div
             className="text-8xl font-black leading-none mb-3 select-none"
             style={{ fontFamily: "'Space Mono', monospace", color: "transparent", WebkitTextStroke: "1px rgba(37,99,235,0.15)" }}
@@ -393,7 +378,6 @@ const ProjectCard = ({ project, index }) => {
             {project.number}
           </div>
 
-          {/* Meta row */}
           <div className="flex items-center flex-wrap gap-2.5 mb-3">
             <span
               className="text-xs tracking-widest uppercase font-bold px-2.5 py-1 rounded-full"
@@ -409,6 +393,7 @@ const ProjectCard = ({ project, index }) => {
                 href={project.creditLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`Visit ${project.credit} website`}
                 className="inline-flex items-center gap-1 text-xs no-underline px-2 py-0.5 rounded-full transition-colors hover:opacity-80"
                 style={{ background: "rgba(251,191,36,0.08)", border: "1px solid rgba(251,191,36,0.2)", color: "#fbbf24" }}
               >
@@ -417,7 +402,6 @@ const ProjectCard = ({ project, index }) => {
             )}
           </div>
 
-          {/* Title */}
           <h2
             className="font-black text-slate-100 mb-4 leading-tight"
             style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", fontFamily: "'Space Mono', monospace" }}
@@ -425,10 +409,8 @@ const ProjectCard = ({ project, index }) => {
             {project.title}
           </h2>
 
-          {/* Description */}
           <p className="text-slate-400 text-sm leading-relaxed mb-5 max-w-md">{project.description}</p>
 
-          {/* Highlights */}
           <ul className="space-y-2 mb-6">
             {project.highlights.map((h, i) => (
               <li key={i} className="flex items-center gap-2.5 text-xs text-slate-500">
@@ -438,7 +420,6 @@ const ProjectCard = ({ project, index }) => {
             ))}
           </ul>
 
-          {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-7">
             {project.tags.map(tag => (
               <span
@@ -451,7 +432,6 @@ const ProjectCard = ({ project, index }) => {
             ))}
           </div>
 
-          {/* CTA button */}
           <motion.a
             href={project.link}
             target="_blank"
@@ -472,7 +452,6 @@ const ProjectCard = ({ project, index }) => {
           transition={{ duration: 0.4 }}
           className="flex-1 w-full max-w-xl relative"
         >
-          {/* Hover glow */}
           <div
             className="absolute -inset-4 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             style={{ background: `radial-gradient(ellipse, ${project.color}15 0%, transparent 70%)` }}
@@ -503,7 +482,6 @@ const ProjectCard = ({ project, index }) => {
               }}
             />
 
-            {/* Category badge */}
             <div
               className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold"
               style={{ background: "rgba(5,12,26,0.88)", border: `1px solid ${project.color}40`, color: project.color, backdropFilter: "blur(8px)" }}
@@ -511,7 +489,6 @@ const ProjectCard = ({ project, index }) => {
               {project.category}
             </div>
 
-            {/* Bottom info overlay */}
             <div className="absolute bottom-0 left-0 right-0 px-5 py-4 flex items-center justify-between">
               <span className="text-white text-sm font-bold" style={{ fontFamily: "'Space Mono', monospace" }}>
                 {project.title}
@@ -526,3 +503,118 @@ const ProjectCard = ({ project, index }) => {
     </motion.div>
   );
 };
+
+// ─── PAGE ─────────────────────────────────────────────────────────────────────
+
+export default function ProjectsPage() {
+  return (
+    <div className="bg-[#050c1a] min-h-screen text-white" style={{ fontFamily: "'Inter', sans-serif" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;900&display=swap');
+        *, *::before, *::after { box-sizing: border-box; }
+        body { margin: 0; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #050c1a; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 2px; }
+      `}</style>
+
+      {/* Fixed net background */}
+      <div
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: `linear-gradient(rgba(37,99,235,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.035) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }}
+      />
+      <div className="fixed inset-0 pointer-events-none z-0" style={{ background: "radial-gradient(ellipse at top, rgba(37,99,235,0.07) 0%, transparent 60%)" }} />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 py-16">
+
+        {/* Back button */}
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="mb-14">
+          <Link
+            to="/"
+            aria-label="Go back to home page"
+            className="inline-flex items-center gap-2.5 text-slate-500 text-sm no-underline hover:text-blue-400 transition-colors"
+          >
+            <motion.span whileHover={{ x: -3 }} transition={{ duration: 0.2 }} className="text-blue-500">
+              <FaArrowLeft size={13} />
+            </motion.span>
+            Back to Home
+          </Link>
+        </motion.div>
+
+        {/* Header */}
+        <AnimSection className="mb-16">
+          <motion.div
+            variants={fadeUp}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs tracking-widest uppercase mb-6 border border-blue-900 text-slate-500"
+            style={{ background: "rgba(37,99,235,0.06)" }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
+            All Projects
+          </motion.div>
+
+          <motion.h1
+            variants={fadeUp}
+            className="font-black text-slate-100 leading-none mb-5"
+            style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)", fontFamily: "'Space Mono', monospace" }}
+          >
+            My<br />
+            <span className="text-blue-500" style={{ textShadow: "0 0 60px rgba(37,99,235,0.4)" }}>Work.</span>
+          </motion.h1>
+
+          <motion.p variants={fadeUp} className="text-slate-500 text-sm max-w-lg leading-relaxed mb-8">
+            Real projects, real clients, real impact — each one built with intention and shipped to production.
+          </motion.p>
+
+          <motion.div variants={fadeUp} className="flex flex-wrap gap-2.5">
+            {["React & Tailwind", "Production Deployed", "Client-Focused", "Mobile-First"].map(tag => (
+              <span
+                key={tag}
+                className="px-4 py-1.5 rounded-full text-xs font-medium text-slate-400"
+                style={{ background: "rgba(37,99,235,0.07)", border: "1px solid rgba(37,99,235,0.18)" }}
+              >
+                {tag}
+              </span>
+            ))}
+          </motion.div>
+        </AnimSection>
+
+        {/* Dino game */}
+        <AnimSection>
+          <motion.div variants={fadeUp}>
+            <DinoGame />
+          </motion.div>
+        </AnimSection>
+
+        {/* Project cards */}
+        <div>
+          {PROJECTS.map((project, i) => (
+            <ProjectCard key={project.title} project={project} index={i} />
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="h-px mt-4 mb-16" style={{ background: "linear-gradient(90deg, transparent, #1e3a6e, transparent)" }} />
+
+        <AnimSection className="text-center">
+          <motion.p variants={fadeUp} className="text-slate-600 text-sm mb-6">
+            More projects on the way — have something in mind?
+          </motion.p>
+          <motion.div variants={fadeUp}>
+            <Link
+              to="/#contact"
+              aria-label="Go to contact section"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white no-underline"
+              style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 28px rgba(37,99,235,0.35)" }}
+            >
+              Let's Work Together →
+            </Link>
+          </motion.div>
+        </AnimSection>
+
+      </div>
+    </div>
+  );
+}
