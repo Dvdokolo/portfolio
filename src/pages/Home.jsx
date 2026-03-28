@@ -43,7 +43,7 @@ const HIGHLIGHTS = [
 
 const SOCIALS = [
   { icon: <FaWhatsapp />,  label: "WhatsApp", href: "https://wa.me/2349131940037" },
-  { icon: <FaLinkedin />,  label: "LinkedIn", href: "https://linkedin.com/in/yourusername" },
+  { icon: <FaLinkedin />,  label: "LinkedIn", href: "https://www.linkedin.com/in/david-okolo-07418b320" },
   { icon: <FaTiktok />,    label: "TikTok",   href: "https://www.tiktok.com/@david.codess" },
   { icon: <FaGithub />,    label: "GitHub",   href: "https://github.com/Dvdokolo" },
 ];
@@ -887,7 +887,7 @@ const ContactSection = () => {
                 // { icon: <FaEnvelope size={14} />,  href: "mailto:dvdokolo@gmail.com" },
                 { icon: <FaWhatsapp size={14} />,  href: "https://wa.me/2349131940037" },
                 { icon: <FaTiktok size={14} />,    href: "https://www.tiktok.com/@david.codess" },
-                { icon: <FaLinkedin size={14} />,  href: "https://linkedin.com/in/yourusername" },
+                { icon: <FaLinkedin size={14} />,  href: "https://www.linkedin.com/in/david-okolo-07418b320" },
                 { icon: <FaGithub />,    label: "GitHub",   href: "https://github.com/Dvdokolo" },
               ].map((item, i) => (
                 <motion.a
